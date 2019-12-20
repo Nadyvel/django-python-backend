@@ -3,7 +3,6 @@ from django.core.exceptions import ValidationError
 from rest_framework import serializers
 # from app.emails.models import Email # IGNORE
 from .models import RegistrationProfile
-from motion_scratch.registration.models import code_generator
 
 # https://docs.djangoproject.com/en/3.0/topics/signals/ you can read about signals here
 from motion_scratch.registration.signals import post_user_registration_validation, post_user_password_reset_validation
