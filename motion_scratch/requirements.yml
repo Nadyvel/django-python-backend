@@ -1,0 +1,12 @@
+name: motion_scratch
+
+dependencies:
+    - python=3.7
+    - psycopg2
+    - pip:
+        - django==3.0
+        - djangorestframework==3.11.0
+        - markdown==3.1.1
+        - django-filter==2.2.0
+        - Pillow==6.2.1
+        - djangorestframework-simplejwt==4.4.0

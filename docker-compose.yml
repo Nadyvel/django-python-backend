@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  backend:
+    image: registry.gitlab.propulsion-home.ch/nadja/week-6/motion-assignment
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./motion_scratch:/motion_scratch
+    command: "tail -f /dev/null"
+    env_file:
+      - ./dev.env
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgresdb:/var/lib/postgresql/data
+    env_file:
+      - ./dev.env
+
+
+volumes:
+  postgresdb:
