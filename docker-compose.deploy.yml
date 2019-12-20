@@ -12,7 +12,7 @@ services:
       - media-files:/media-files
   backend:
     image: registry.gitlab.propulsion-home.ch/nadja/week-6/motion-assignment
-    command: "sh /scripts/run.sh"
+    command: "tail -f /dev/null"
     env_file:
       - ./prod.env
     depends_on:
