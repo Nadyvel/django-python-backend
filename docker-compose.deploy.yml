@@ -1,0 +1,31 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - static-files:/static-files
+      - /etc/letsencrypt:/etc/letsencrypt
+      - media-files:/media-files
+  backend:
+    image: registry.gitlab.propulsion-home.ch/nadja/week-6/motion-assignment
+    command: "sh /scripts/run.sh"
+    env_file:
+      - ./prod.env
+    depends_on:
+      - postgres
+    volumes:
+      - static-files:/static-files
+  postgres:
+    image: postgres:latest
+    volumes:
+      - motion-assignment:/var/lib/postgresql/data
+    env_file:
+      - ./prod.env
+volumes:
+  motion-assignment:
+  static-files:
+  media-files:
