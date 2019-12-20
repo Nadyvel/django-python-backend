@@ -1,7 +1,5 @@
 from django.urls import path
-from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView
-from .views import RegistrationView #RegistrationValidationView, TokenUserObtainView, PasswordResetView, \
-    #PasswordResetValidationView
+from .views import RegistrationView
 
 app_name = 'registration'
 

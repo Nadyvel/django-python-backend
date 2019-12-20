@@ -7,10 +7,10 @@ from rest_framework.response import Response
 from .serializers import RegistrationSerializer #RegistrationValidationSerializer, PasswordResetSerializer, \
     #PasswordResetValidationSerializer
 from django.contrib.auth import get_user_model
-from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
-from rest_framework_simplejwt.views import TokenObtainPairView
-
-from motion_scratch.users.serializers import UserSerializer
+# from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
+# from rest_framework_simplejwt.views import TokenObtainPairView
+#
+# from motion_scratch.users.serializers import UserSerializer
 
 User = get_user_model()
 
