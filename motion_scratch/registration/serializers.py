@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from rest_framework import serializers
 # from app.emails.models import Email # IGNORE
-from motion_scratch.registration.models import RegistrationProfile
+from .models import RegistrationProfile
 from motion_scratch.registration.models import code_generator
 
 # https://docs.djangoproject.com/en/3.0/topics/signals/ you can read about signals here

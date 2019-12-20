@@ -1,6 +1,6 @@
 from django.urls import path
 from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView
-from motion_scratch.registration.views import RegistrationView #RegistrationValidationView, TokenUserObtainView, PasswordResetView, \
+from .views import RegistrationView #RegistrationValidationView, TokenUserObtainView, PasswordResetView, \
     #PasswordResetValidationView
 
 app_name = 'registration'
