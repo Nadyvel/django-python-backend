@@ -5,7 +5,7 @@ from rest_framework import serializers
 from .models import RegistrationProfile
 
 # https://docs.djangoproject.com/en/3.0/topics/signals/ you can read about signals here
-from motion_scratch.registration.signals import post_user_registration_validation, post_user_password_reset_validation
+#from motion_scratch.registration.signals import post_user_registration_validation, post_user_password_reset_validation
 
 User = get_user_model()
 
