@@ -2,11 +2,11 @@ from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from rest_framework import serializers
 # from app.emails.models import Email # IGNORE
-from app.registration.models import RegistrationProfile
-from app.registration.models import code_generator
+from motion_scratch.registration.models import RegistrationProfile
+from motion_scratch.registration.models import code_generator
 
 # https://docs.djangoproject.com/en/3.0/topics/signals/ you can read about signals here
-from app.registration.signals import post_user_registration_validation, post_user_password_reset_validation
+from motion_scratch.registration.signals import post_user_registration_validation, post_user_password_reset_validation
 
 User = get_user_model()
 
@@ -79,40 +79,40 @@ class RegistrationSerializer(serializers.Serializer):
         return new_user
 
 
-# FOR THE SECOND REGISTRATION STEP (get the first one working before looking at this)
-class RegistrationValidationSerializer(serializers.Serializer):
-    email = serializers.EmailField(label='Registration E-Mail Address', validators=[email_does_exist])
-    username = serializers.CharField(label='Username', validators=[username_does_not_exist])
-    code = serializers.CharField(label='Validation code', write_only=True, validators=[code_is_valid])
-    password = serializers.CharField(label='password', write_only=True)
-    password_repeat = serializers.CharField(label='password_repeat', write_only=True)
-    first_name = serializers.CharField(label='First name')
-    last_name = serializers.CharField(label='Last name')
-
-    def validate(self, data):
-        code = data.get('code')
-        email = data.get('email')
-        user = User.objects.get(email=email)
-        reg_profile = RegistrationProfile.objects.get(code=code)
-        if reg_profile != user.registration_profile:
-            raise ValidationError(message='The code does not belong to this email!')
-        if data.get('password') != data.get('password_repeat'):
-            raise ValidationError(message='Passwords do not match!')
-        return data
-
-    def save(self, validated_data):
-        email = validated_data.get('email')
-        user = User.objects.get(email=email)
-        user.username = validated_data.get('username')
-        user.first_name = validated_data.get('first_name')
-        user.last_name = validated_data.get('last_name')
-        user.is_active = True
-        user.set_password(validated_data.get('password'))
-        user.registration_profile.code_used = True
-        user.save()
-        user.registration_profile.save()
-        post_user_registration_validation.send(sender=User, user=user)
-        return user
+# # FOR THE SECOND REGISTRATION STEP (get the first one working before looking at this)
+# class RegistrationValidationSerializer(serializers.Serializer):
+#     email = serializers.EmailField(label='Registration E-Mail Address', validators=[email_does_exist])
+#     username = serializers.CharField(label='Username', validators=[username_does_not_exist])
+#     code = serializers.CharField(label='Validation code', write_only=True, validators=[code_is_valid])
+#     password = serializers.CharField(label='password', write_only=True)
+#     password_repeat = serializers.CharField(label='password_repeat', write_only=True)
+#     first_name = serializers.CharField(label='First name')
+#     last_name = serializers.CharField(label='Last name')
+#
+#     def validate(self, data):
+#         code = data.get('code')
+#         email = data.get('email')
+#         user = User.objects.get(email=email)
+#         reg_profile = RegistrationProfile.objects.get(code=code)
+#         if reg_profile != user.registration_profile:
+#             raise ValidationError(message='The code does not belong to this email!')
+#         if data.get('password') != data.get('password_repeat'):
+#             raise ValidationError(message='Passwords do not match!')
+#         return data
+#
+#     def save(self, validated_data):
+#         email = validated_data.get('email')
+#         user = User.objects.get(email=email)
+#         user.username = validated_data.get('username')
+#         user.first_name = validated_data.get('first_name')
+#         user.last_name = validated_data.get('last_name')
+#         user.is_active = True
+#         user.set_password(validated_data.get('password'))
+#         user.registration_profile.code_used = True
+#         user.save()
+#         user.registration_profile.save()
+#         post_user_registration_validation.send(sender=User, user=user)
+#         return user
 
 
 
