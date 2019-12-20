@@ -23,7 +23,7 @@ COPY ./motion_scratch /motion_scratch
 COPY ./scripts/* /scripts/
 RUN chmod +x /scripts/*
 
-RUN echo "source activate motion_scratch" >~/.bashrc
+RUN echo "source activate motion-scratch" >~/.bashrc
 # set the working directory to /app for whenever you login into your container
 WORKDIR /motion_scratch
 

@@ -1,4 +1,4 @@
-name: motion_scratch
+name: motion-scratch
 
 dependencies:
     - python=3.7
